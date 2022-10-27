@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Model3d
+  m_EditorClassIdentifier: 
+  m_GroupName: Model3d
+  m_Data:
+    m_SerializedData: []
+  m_GUID: dd2a03b085d8b45ea96938d33dc62afd
+  m_SerializeEntries:
+  - m_GUID: ef8a869db6ff04cb88f2c465da185b2f
+    m_Address: Assets/AssetsPackage/Model3d/Build/Prefabs/cat.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: fe9e2d4d9cef746b7bb8f14136749377
+    m_Address: Assets/AssetsPackage/Model3d/Build/Res/cat.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 16b8d5c63a42e41558db88f0a846982d
+    m_Address: Assets/AssetsPackage/Model3d/Common/Prefabs/tree.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 33ea3bf2f0e554851abb06e9519670b4
+    m_Address: Assets/AssetsPackage/Model3d/Common/Res/tree.png
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 0637e91f7a3034b49a8ee0e21a38e4f6, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: b15bff176241a476ea2690369dcb380b, type: 2}
+    - {fileID: 11400000, guid: 87c51684312c44ca893f153c6814cfeb, type: 2}

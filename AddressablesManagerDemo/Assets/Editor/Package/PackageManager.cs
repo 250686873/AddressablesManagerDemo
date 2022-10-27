@@ -8,9 +8,8 @@ using UnityEditor;
 public class PackageManager
 {
 
+    //资源 assets 根目录
     private const string ASSETS_PACKAGE_PATH = "AssetsPackage";
-
-    //public static LoadImageMgr Instance { get; private set; } = new LoadImageMgr();
 
     [MenuItem("Tools/Package/设置 AA 分组")]
     public static void SetAddressableGroup()
@@ -26,12 +25,14 @@ public class PackageManager
         {
             var groupName = file.Name;
             var path = "Assets/" + ASSETS_PACKAGE_PATH + "/" + file.Name;
+            //拿到检查分组
             AddressableAssetGroup tempGroup = settings.FindGroup(groupName);
             if (tempGroup == null)
             {
                 tempGroup = settings.CreateGroup(groupName, false, false, true, GetCommonSchema());
             }
-            AddOneAssetEntry(path, settings, tempGroup);
+            //递归添加 entry
+            AddAssetEntry(path, settings, file, tempGroup);
         }
         //检查失效的 group
         var allGroup = settings.groups;
@@ -45,16 +46,32 @@ public class PackageManager
         }
     }
 
-    private static void AddOneAssetEntry(string path, AddressableAssetSettings settings, AddressableAssetGroup targetGroup)
-    {   
-        //通过文件夹路径获得 guid
-        var guid = AssetDatabase.AssetPathToGUID(path);
-        //通过 guid 获得 文件地址登记信息
-        var entry = settings.FindAssetEntry(guid);
-        //如果信息信息 存在 并且所属 aa 分组不为目标分组，等级分组信息
-        if (entry == null || entry.parentGroup != targetGroup)
-        {   
-            settings.CreateOrMoveEntry(guid, targetGroup);
+    private static void AddAssetEntry(string path, AddressableAssetSettings settings, DirectoryInfo file, AddressableAssetGroup targetGroup)
+    {
+        var allFiles = file.GetDirectories();
+        foreach (var tempFile in allFiles)
+        {
+            AddAssetEntry(path + "/" + tempFile.Name, settings, tempFile, targetGroup);
+            var chileFiles = tempFile.GetFiles();
+            foreach (var chileFile in chileFiles)
+            {
+                //mate 文件不需要划分到 aa 分组之下
+                var nameDate = chileFile.Name.Split('.');
+                if (nameDate.Length > 1 && nameDate[nameDate.Length - 1] != "meta")
+                {
+                    //通过文件夹路径获得 guid
+                    var childFilePath = path + "/" + tempFile.Name + "/" + chileFile.Name;
+                    Debug.Log("aa ChildFile Path: " + childFilePath);
+                    var guid = AssetDatabase.AssetPathToGUID(childFilePath);
+                    //通过 guid 获得 文件地址登记信息
+                    var entry = settings.FindAssetEntry(guid);
+                    //如果信息信息 存在 并且所属 aa 分组不为目标分组，等级分组信息
+                    if (entry == null || entry.parentGroup != targetGroup)
+                    {
+                        settings.CreateOrMoveEntry(guid, targetGroup);
+                    }
+                }
+            }
         }
     }
 
